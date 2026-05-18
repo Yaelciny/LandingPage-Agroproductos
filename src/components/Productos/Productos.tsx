@@ -1,19 +1,23 @@
 "use client";
+// ─── Seccion Productos y Sectores ────────────────────────────
+// Muestra el catalogo de productos/servicios en tarjetas
+// con icono. Los datos se leen desde siteData (productosTitle,
+// productosDescription, productosSectores).
 
 import { motion } from "framer-motion";
-import { productosTitle, productosDescription, productosSectores } from "@/src/data/nat";
+import { siteData } from "@/src/data/nat";
+
+const { productosTitle, productosDescription, productosSectores } = siteData;
 
 export default function Productos() {
   return (
     <section
       id="productos"
-      className="relative overflow-hidden border-t border-neutral-100 bg-neutral-50 py-24 lg:py-32"
+      className="relative overflow-hidden border-t border-border bg-muted py-24 lg:py-32"
     >
-      {/* Decorative */}
-      <div className="pointer-events-none absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-neutral-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-muted-foreground/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -21,18 +25,17 @@ export default function Productos() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mb-20 text-center"
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">
-            Catálogo
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+            Cat&aacute;logo
           </p>
-          <h2 className="mb-6 text-3xl font-bold tracking-tight text-black sm:text-4xl lg:text-5xl">
+          <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             {productosTitle}
           </h2>
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-500">
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground">
             {productosDescription}
           </p>
         </motion.div>
 
-        {/* Products grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {productosSectores.map((item, index) => (
             <motion.div
@@ -40,31 +43,23 @@ export default function Productos() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                delay: index * 0.1,
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-white p-8 transition-all duration-500 hover:border-neutral-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+              transition={{ delay: index * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative overflow-hidden rounded-2xl border border-border/60 bg-background p-8 transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
             >
-              {/* Top accent */}
-              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-neutral-300 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-              {/* Icon */}
-              <div className="mb-6 text-4xl transition-transform duration-300 group-hover:scale-110">
-                {item.icon}
+              <div className="mb-6 transition-transform duration-300 group-hover:scale-110">
+                <item.icon className="h-8 w-8 text-foreground/80" />
               </div>
 
-              {/* Content */}
-              <h3 className="mb-3 text-lg font-bold tracking-tight text-black">
+              <h3 className="mb-3 text-lg font-bold tracking-tight text-foreground">
                 {item.title}
               </h3>
-              <p className="text-sm leading-relaxed text-neutral-500">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
 
-              {/* Number */}
-              <span className="absolute bottom-4 right-6 text-6xl font-black text-neutral-100 transition-colors duration-500 group-hover:text-neutral-200">
+              <span className="absolute bottom-4 right-6 text-6xl font-black text-muted/50 transition-colors duration-500 group-hover:text-muted-foreground/20">
                 {String(item.id).padStart(2, "0")}
               </span>
             </motion.div>

@@ -1,14 +1,55 @@
 "use client";
+// ─── Footer ──────────────────────────────────────────────────
+// Muestra el nombre de la empresa, enlaces de navegacion,
+// servicios y datos de contacto. Los textos vienen de siteData.
 
+import { type LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
-import { footerData, navLinks } from "@/src/data/nat";
+import { Sprout, MapPin, Phone, Mail } from "lucide-react";
+import { siteData } from "@/src/data/nat";
+
+const { footerData, navLinks, contact } = siteData;
+
+interface FooterLink {
+  label: string;
+  href: string;
+  icon?: LucideIcon;
+}
+
+interface FooterColumn {
+  title: string;
+  items: FooterLink[];
+}
+
+const footerLinks: FooterColumn[] = [
+  {
+    title: "Navegación",
+    items: navLinks.map((l) => ({ label: l.label, href: l.href })),
+  },
+  {
+    title: "Servicios",
+    items: [
+      { label: "Fertilizantes", href: "#productos" },
+      { label: "Insumos Agrícolas", href: "#productos" },
+      { label: "Logística", href: "#soluciones" },
+      { label: "Asesoría Técnica", href: "#soluciones" },
+    ],
+  },
+  {
+    title: "Contacto",
+    items: [
+      { label: contact.address, href: "#contacto", icon: MapPin },
+      { label: contact.phone, href: `tel:${contact.phone}`, icon: Phone },
+      { label: contact.email, href: `mailto:${contact.email}`, icon: Mail },
+    ],
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-100 bg-black">
+    <footer className="border-t border-border bg-primary">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
-        <div className="grid gap-12 md:grid-cols-3">
-          {/* Brand */}
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -16,70 +57,48 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
           >
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
-                <span className="text-lg font-bold text-black">A</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-background">
+                <Sprout className="h-5 w-5 text-foreground" />
               </div>
-              <span className="text-sm font-semibold text-white">
+              <span className="text-sm font-semibold text-primary-foreground">
                 {footerData.companyName}
               </span>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-neutral-500">
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
               {footerData.description}
             </p>
           </motion.div>
 
-          {/* Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-          >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Navegación
-            </p>
-            <ul className="space-y-3">
-              {navLinks.map((link) => (
-                <li key={link.id}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-neutral-400 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Legal */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Legal
-            </p>
-            <ul className="space-y-3">
-              <li>
-                <span className="text-sm text-neutral-400">
-                  Aviso de Privacidad
-                </span>
-              </li>
-              <li>
-                <span className="text-sm text-neutral-400">
-                  Términos y Condiciones
-                </span>
-              </li>
-            </ul>
-          </motion.div>
+          {footerLinks.map((section, idx) => (
+            <motion.div
+              key={section.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 + idx * 0.1, duration: 0.6 }}
+            >
+              <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {section.title}
+              </p>
+              <ul className="space-y-3">
+                {section.items.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary-foreground"
+                    >
+                      {item.icon && <item.icon className="h-3.5 w-3.5 shrink-0" />}
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-16 border-t border-white/[0.06] pt-8">
-          <p className="text-center text-xs text-neutral-600">
+        <div className="mt-16 border-t border-border pt-8">
+          <p className="text-center text-xs text-muted-foreground">
             {footerData.copyright}
           </p>
         </div>

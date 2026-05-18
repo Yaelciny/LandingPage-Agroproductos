@@ -1,21 +1,32 @@
 // ============================================================
 // nat.ts — Archivo centralizado de datos para la landing page
 // "Agroproductos y servicios del centro"
+//
+// 📦 Como usar:
+//   import { siteData } from "@/src/data/nat";
+//   siteData.banners  →  array de slides del carrusel
+//   siteData.contact       →  info de contacto, whatsapp, mapa
+//   siteData.seoMetadata   →  meta tags para SEO
 // ============================================================
 
+import { Zap, Star, Handshake, Package, Truck, FlaskConical, Sprout, Shield, Users } from "lucide-react";
+
 // ─── Tipos ───────────────────────────────────────────────────
+// Define la forma de cada seccion del sitio. Todas las interfaces
+// se exportan por si necesitas usarlas en componentes.
 
 export interface BannerSlide {
   id: number;
   title: string;
   subtitle: string;
+  image: string;
 }
 
 export interface Distintivo {
   id: number;
   title: string;
   description: string;
-  icon: string; // emoji o identificador de ícono
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 export interface ExperienciaItem {
@@ -25,25 +36,16 @@ export interface ExperienciaItem {
 
 export interface SobreNosotrosData {
   sectionTitle: string;
-  concepto: {
-    title: string;
-    description: string;
-  };
-  mision: {
-    title: string;
-    description: string;
-  };
-  valorAgregado: {
-    title: string;
-    description: string;
-  };
+  concepto: { title: string; description: string };
+  mision: { title: string; description: string };
+  valorAgregado: { title: string; description: string };
 }
 
 export interface SolucionItem {
   id: number;
   title: string;
   description: string;
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 export interface SolucionesData {
@@ -56,32 +58,20 @@ export interface ProductoSector {
   id: number;
   title: string;
   description: string;
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
-export interface ContactoData {
-  sectionTitle: string;
-  sectionDescription: string;
-  ubicacion: {
-    label: string;
-    value: string;
-  };
-  telefono: {
-    label: string;
-    value: string;
-    href: string;
-  };
-  correo: {
-    label: string;
-    value: string;
-    href: string;
-  };
-  whatsapp: {
-    label: string;
-    value: string;
-    href: string;
-    cta: string;
-  };
+// Estructura plana de contacto — sin objetos anidados
+export interface ContactData {
+  title: string;
+  subtitle: string;
+  infoTitle: string;
+  address: string;
+  phone: string;
+  email: string;
+  whatsapp: string;
+  mapPlaceholder: string;
+  mapUrl: string;
 }
 
 export interface NavLink {
@@ -96,220 +86,160 @@ export interface FooterData {
   copyright: string;
 }
 
-// ─── Navegación ──────────────────────────────────────────────
+export interface SiteData {
+  navLinks: NavLink[];
+  banners: BannerSlide[];
+  distintivos: Distintivo[];
+  experienciaTitle: string;
+  experienciaItems: ExperienciaItem[];
+  sobreNosotros: SobreNosotrosData;
+  soluciones: SolucionesData;
+  productosTitle: string;
+  productosDescription: string;
+  productosSectores: ProductoSector[];
+  contact: ContactData;
+  footerData: FooterData;
+  seoMetadata: {
+    title: string;
+    description: string;
+    keywords: string[];
+    ogImage: string;
+    url: string;
+  };
+}
 
-export const navLinks: NavLink[] = [
-  { id: "inicio", label: "Inicio", href: "#inicio" },
-  { id: "nosotros", label: "Nosotros", href: "#nosotros" },
-  { id: "soluciones", label: "Soluciones", href: "#soluciones" },
-  { id: "productos", label: "Productos", href: "#productos" },
-  { id: "contacto", label: "Contacto", href: "#contacto" },
-];
+// ═══════════════════════════════════════════════════════════════
+//  SITE DATA — Edita aqui todos los textos e imagenes del sitio
+// ═══════════════════════════════════════════════════════════════
 
-// ─── Hero / Inicio ──────────────────────────────────────────
+export const siteData: SiteData = {
 
-export const bannerSlides: BannerSlide[] = [
-  {
-    id: 1,
-    title: "Agroproductos y servicios del centro.",
-    subtitle:
-      "Tu aliado estratégico en el campo y la producción agrícola.",
-  },
-  {
-    id: 2,
-    title: "Rapidez y Calidad en cada Entrega.",
-    subtitle:
-      "Soluciones inmediatas en fertilizantes e insumos para que tu cultivo nunca se detenga.",
-  },
-  {
-    id: 3,
-    title: "Compromiso Total con el Productor.",
-    subtitle:
-      "Respaldo y confianza técnica para optimizar el rendimiento de tus tierras.",
-  },
-];
+  // ─── Navegacion ──────────────────────────────────────────
+  navLinks: [
+    { id: "inicio", label: "Inicio", href: "#inicio" },
+    { id: "nosotros", label: "Nosotros", href: "#nosotros" },
+    { id: "soluciones", label: "Soluciones", href: "#soluciones" },
+    { id: "productos", label: "Productos", href: "#productos" },
+    { id: "contacto", label: "Contacto", href: "#contacto" },
+  ],
 
-export const distintivos: Distintivo[] = [
-  {
-    id: 1,
-    title: "Rapidez de Respuesta",
-    description:
-      "Gestión ágil de pedidos para cumplir con los tiempos críticos de la siembra y cosecha.",
-    icon: "⚡",
-  },
-  {
-    id: 2,
-    title: "Calidad Garantizada",
-    description:
-      "Selección rigurosa de insumos agrícolas y fertilizantes de alto desempeño.",
-    icon: "✦",
-  },
-  {
-    id: 3,
-    title: "Confianza y Cercanía",
-    description:
-      "Acompañamiento directo y compromiso real con el éxito de nuestros clientes.",
-    icon: "🤝",
-  },
-];
-
-export const experienciaTitle = "Experiencia y Respaldo en el Sector";
-
-export const experienciaItems: ExperienciaItem[] = [
-  {
-    id: 1,
-    text: "Atención especializada para agricultores y grandes productores de cultivo.",
-  },
-  {
-    id: 2,
-    text: "Suministro eficiente de fertilizantes e insumos agrícolas esenciales.",
-  },
-  {
-    id: 3,
-    text: "Soluciones diseñadas para resolver las necesidades inmediatas del sector agropecuario.",
-  },
-];
-
-// ─── Sobre Nosotros ──────────────────────────────────────────
-
-export const sobreNosotros: SobreNosotrosData = {
-  sectionTitle: "Sobre Nosotros",
-  concepto: {
-    title: "Concepto",
-    description:
-      "Somos una empresa dedicada a fortalecer el sector agrícola, posicionándonos como el aliado principal de quienes trabajan la tierra.",
-  },
-  mision: {
-    title: "Nuestra Misión",
-    description:
-      "Resolver de manera eficiente el suministro de insumos, asegurando que cada productor cuente con productos de alta calidad y la asesoría necesaria para hacer crecer su negocio.",
-  },
-  valorAgregado: {
-    title: "Valor Agregado",
-    description:
-      "En Agroproductos y servicios del centro, no solo vendemos insumos; ofrecemos un compromiso inquebrantable con la productividad y la rapidez que el campo exige hoy en día.",
-  },
-};
-
-// ─── Soluciones Agrícolas ────────────────────────────────────
-
-export const soluciones: SolucionesData = {
-  sectionTitle: "Gestión Integral de Insumos para el Campo",
-  sectionDescription:
-    "Entendemos que el tiempo en la agricultura es vital. Por ello, nuestra propuesta de valor se centra en blindar tu ciclo de producción:",
-  items: [
+  // ─── Hero / Inicio ───────────────────────────────────────
+  banners: [
     {
       id: 1,
-      title: "Disponibilidad Inmediata",
-      description:
-        "Contamos con el stock necesario para evitar retrasos en tus etapas de fertilización.",
-      icon: "📦",
+      title: "Agroproductos y servicios del centro.",
+      subtitle: "Tu aliado estratégico en el campo y la producción agrícola.",
+      image: "/images/hero-1.svg",
     },
     {
       id: 2,
-      title: "Logística de Respuesta Rápida",
-      description:
-        "Procesos de entrega ágiles diseñados para llegar hasta donde tu cultivo lo necesite.",
-      icon: "🚚",
+      title: "Rapidez y Calidad en cada Entrega.",
+      subtitle: "Soluciones inmediatas en fertilizantes e insumos para que tu cultivo nunca se detenga.",
+      image: "/images/hero-2.svg",
     },
     {
       id: 3,
-      title: "Asesoría en Fertilizantes",
-      description:
-        "Orientación técnica para la selección de los mejores productos según tu tipo de suelo y siembra.",
-      icon: "🧪",
+      title: "Compromiso Total con el Productor.",
+      subtitle: "Respaldo y confianza técnica para optimizar el rendimiento de tus tierras.",
+      image: "/images/hero-3.svg",
     },
   ],
-};
 
-// ─── Productos y Sectores ────────────────────────────────────
-
-export const productosTitle = "Productos y Sectores";
-export const productosDescription =
-  "Ofrecemos una gama completa de productos y servicios diseñados para impulsar el rendimiento de tu producción agrícola.";
-
-export const productosSectores: ProductoSector[] = [
-  {
-    id: 1,
-    title: "Fertilizantes Especializados",
-    description:
-      "Nutrición vegetal avanzada para diversos tipos de suelo.",
-    icon: "🌱",
-  },
-  {
-    id: 2,
-    title: "Insumos Agrícolas",
-    description:
-      "Todo lo necesario para la protección y cuidado de tus cultivos.",
-    icon: "🛡️",
-  },
-  {
-    id: 3,
-    title: "Atención a Productores",
-    description:
-      "Soluciones a medida para agricultores independientes y empresas agrícolas.",
-    icon: "👨‍🌾",
-  },
-  {
-    id: 4,
-    title: "Logística y Distribución",
-    description:
-      "Servicio de entrega eficiente mediante nuestras unidades de transporte.",
-    icon: "🚛",
-  },
-];
-
-// ─── Contacto ────────────────────────────────────────────────
-
-export const contacto: ContactoData = {
-  sectionTitle: "Contacto",
-  sectionDescription:
-    "¿Listo para optimizar tu producción agrícola? Contáctanos y recibe asesoría personalizada.",
-  ubicacion: {
-    label: "Ubicación",
-    value: "León, Guanajuato",
-  },
-  telefono: {
-    label: "Teléfono",
-    value: "+52 (477) 000-0000",
-    href: "tel:+524770000000",
-  },
-  correo: {
-    label: "Correo electrónico",
-    value: "contacto@agroproductos.com",
-    href: "mailto:contacto@agroproductos.com",
-  },
-  whatsapp: {
-    label: "WhatsApp",
-    value: "+52 (477) 000-0000",
-    href: "https://wa.me/524770000000?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20de%20fertilizantes.",
-    cta: "Cotiza por WhatsApp",
-  },
-};
-
-// ─── Footer ──────────────────────────────────────────────────
-
-export const footerData: FooterData = {
-  companyName: "Agroproductos y servicios del centro",
-  description:
-    "Tu aliado estratégico en el campo y la producción agrícola. León, Guanajuato.",
-  copyright: `© ${new Date().getFullYear()} Agroproductos y servicios del centro. Todos los derechos reservados.`,
-};
-
-// ─── Metadata SEO ────────────────────────────────────────────
-
-export const seoMetadata = {
-  title: "Agroproductos y servicios del centro | Fertilizantes e Insumos Agrícolas",
-  description:
-    "Tu aliado estratégico en el campo. Suministro eficiente de fertilizantes, insumos agrícolas y asesoría técnica en León, Guanajuato.",
-  keywords: [
-    "agroproductos",
-    "fertilizantes",
-    "insumos agrícolas",
-    "León Guanajuato",
-    "producción agrícola",
-    "nutrición vegetal",
+  distintivos: [
+    {
+      id: 1,
+      title: "Rapidez de Respuesta",
+      description: "Gestión ágil de pedidos para cumplir con los tiempos críticos de la siembra y cosecha.",
+      icon: Zap,
+    },
+    {
+      id: 2,
+      title: "Calidad Garantizada",
+      description: "Selección rigurosa de insumos agrícolas y fertilizantes de alto desempeño.",
+      icon: Star,
+    },
+    {
+      id: 3,
+      title: "Confianza y Cercanía",
+      description: "Acompañamiento directo y compromiso real con el éxito de nuestros clientes.",
+      icon: Handshake,
+    },
   ],
-  ogImage: "/og-image.jpg",
-  url: "https://agroproductos.com",
+
+  experienciaTitle: "Experiencia y Respaldo en el Sector",
+
+  experienciaItems: [
+    { id: 1, text: "Atención especializada para agricultores y grandes productores de cultivo." },
+    { id: 2, text: "Suministro eficiente de fertilizantes e insumos agrícolas esenciales." },
+    { id: 3, text: "Soluciones diseñadas para resolver las necesidades inmediatas del sector agropecuario." },
+  ],
+
+  // ─── Sobre Nosotros ──────────────────────────────────────
+  sobreNosotros: {
+    sectionTitle: "Sobre Nosotros",
+    concepto: {
+      title: "Concepto",
+      description: "Somos una empresa dedicada a fortalecer el sector agrícola, posicionándonos como el aliado principal de quienes trabajan la tierra.",
+    },
+    mision: {
+      title: "Nuestra Misión",
+      description: "Resolver de manera eficiente el suministro de insumos, asegurando que cada productor cuente con productos de alta calidad y la asesoría necesaria para hacer crecer su negocio.",
+    },
+    valorAgregado: {
+      title: "Valor Agregado",
+      description: "En Agroproductos y servicios del centro, no solo vendemos insumos; ofrecemos un compromiso inquebrantable con la productividad y la rapidez que el campo exige hoy en día.",
+    },
+  },
+
+  // ─── Soluciones Agricolas ────────────────────────────────
+  soluciones: {
+    sectionTitle: "Gestión Integral de Insumos para el Campo",
+    sectionDescription: "Entendemos que el tiempo en la agricultura es vital. Por ello, nuestra propuesta de valor se centra en blindar tu ciclo de producción:",
+    items: [
+      { id: 1, title: "Disponibilidad Inmediata", description: "Contamos con el stock necesario para evitar retrasos en tus etapas de fertilización.", icon: Package },
+      { id: 2, title: "Logística de Respuesta Rápida", description: "Procesos de entrega ágiles diseñados para llegar hasta donde tu cultivo lo necesite.", icon: Truck },
+      { id: 3, title: "Asesoría en Fertilizantes", description: "Orientación técnica para la selección de los mejores productos según tu tipo de suelo y siembra.", icon: FlaskConical },
+    ],
+  },
+
+  // ─── Productos y Sectores ────────────────────────────────
+  productosTitle: "Productos y Sectores",
+  productosDescription: "Ofrecemos una gama completa de productos y servicios diseñados para impulsar el rendimiento de tu producción agrícola.",
+
+  productosSectores: [
+    { id: 1, title: "Fertilizantes Especializados", description: "Nutrición vegetal avanzada para diversos tipos de suelo.", icon: Sprout },
+    { id: 2, title: "Insumos Agrícolas", description: "Todo lo necesario para la protección y cuidado de tus cultivos.", icon: Shield },
+    { id: 3, title: "Atención a Productores", description: "Soluciones a medida para agricultores independientes y empresas agrícolas.", icon: Users },
+    { id: 4, title: "Logística y Distribución", description: "Servicio de entrega eficiente mediante nuestras unidades de transporte.", icon: Truck },
+  ],
+
+  // ─── Contacto ────────────────────────────────────────────
+  // Campos planos: title, subtitle, address, phone, email, whatsapp, mapUrl
+  contact: {
+    title: "Contacto",
+    subtitle: "¿Listo para optimizar tu producción agrícola? Contáctanos y recibe asesoría personalizada.",
+    infoTitle: "Información de Contacto",
+    address: "León, Guanajuato",
+    phone: "+52 (477) 000-0000",
+    email: "contacto@agroproductos.com",
+    whatsapp: "https://wa.me/524770000000?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20de%20fertilizantes.",
+    mapPlaceholder: "Mapa de Google Maps",
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119131.1277054162!2d-101.71447722628937!3d21.124551766812634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bbfd1ab6ae1f5%3A0xc57f9d28b73b27a7!2sLe%C3%B3n%2C%20Gto.!5e0!3m2!1ses!2smx!4v1!4m3!3m2!1ses!2smx",
+  },
+
+  // ─── Footer ──────────────────────────────────────────────
+  footerData: {
+    companyName: "Agroproductos y servicios del centro",
+    description: "Tu aliado estratégico en el campo y la producción agrícola. León, Guanajuato.",
+    copyright: `© ${new Date().getFullYear()} Agroproductos y servicios del centro. Todos los derechos reservados.`,
+  },
+
+  // ─── Metadata SEO ────────────────────────────────────────
+  seoMetadata: {
+    title: "Agroproductos y servicios del centro | Fertilizantes e Insumos Agrícolas",
+    description: "Tu aliado estratégico en el campo. Suministro eficiente de fertilizantes, insumos agrícolas y asesoría técnica en León, Guanajuato.",
+    keywords: ["agroproductos", "fertilizantes", "insumos agrícolas", "León Guanajuato", "producción agrícola", "nutrición vegetal"],
+    ogImage: "/og-image.jpg",
+    url: "https://agroproductos.com",
+  },
 };

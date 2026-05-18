@@ -2,174 +2,121 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  bannerSlides,
-  distintivos,
-  experienciaTitle,
-  experienciaItems,
-} from "@/src/data/nat";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { siteData } from "@/src/data/nat";
+
+const { banners, distintivos, experienciaTitle, experienciaItems } = siteData;
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const nextSlide = useCallback(() => {
-    setDirection(1);
-    setCurrent((prev) => (prev + 1) % bannerSlides.length);
-  }, []);
-
-  const goToSlide = (index: number) => {
-    setDirection(index > current ? 1 : -1);
-    setCurrent(index);
-  };
+  const next = useCallback(
+    () => setCurrent((prev) => (prev + 1) % banners.length),
+    [banners.length]
+  );
+  const prev = useCallback(
+    () => setCurrent((prev) => (prev - 1 + banners.length) % banners.length),
+    [banners.length]
+  );
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 6000);
+    if (isPaused) return;
+    const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
-  }, [nextSlide]);
-
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? "100%" : "-100%",
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      x: dir > 0 ? "-100%" : "100%",
-      opacity: 0,
-    }),
-  };
+  }, [isPaused, next]);
 
   return (
     <section id="inicio" className="relative">
-      {/* ── Carrusel de Banners ─────────────────────────── */}
-      <div className="relative h-screen min-h-[700px] overflow-hidden bg-black">
-        {/* Overlay grain texture */}
-        <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
-
-        <AnimatePresence initial={false} custom={direction} mode="wait">
+      {/* ── Carrusel ────────────────────────────────── */}
+      <div
+        className="relative h-dvh overflow-hidden"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <AnimatePresence initial={false}>
           <motion.div
             key={current}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 flex items-center justify-center bg-black"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9 }}
+            className="absolute inset-0"
           >
-            {/* Decorative grid pattern */}
-            <div className="absolute inset-0 opacity-[0.03]">
-              <div
-                className="h-full w-full"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-                  backgroundSize: "60px 60px",
-                }}
-              />
-            </div>
-
-            {/* Content */}
-            <div className="relative z-20 mx-auto max-w-5xl px-6 text-center">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500"
-              >
-                {`0${current + 1} / 0${bannerSlides.length}`}
-              </motion.p>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-8 text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-              >
-                {bannerSlides[current].title}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.7 }}
-                className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-neutral-400 sm:text-xl"
-              >
-                {bannerSlides[current].subtitle}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
-                className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-              >
-                <a
-                  href="#contacto"
-                  className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-neutral-200 hover:scale-[1.02]"
-                >
-                  Solicitar Cotización
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </a>
-                <a
-                  href="#nosotros"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/5"
-                >
-                  Conocer Más
-                </a>
-              </motion.div>
-            </div>
+            <Image
+              src={banners[current].image}
+              alt={banners[current].title}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/50 to-primary/80" />
           </motion.div>
         </AnimatePresence>
 
-        {/* Slide indicators */}
-        <div className="absolute bottom-12 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3">
-          {bannerSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className="group relative h-3 transition-all duration-500"
-              aria-label={`Ir al slide ${index + 1}`}
+        <div className="relative z-10 h-full flex items-center justify-center pt-16 md:pt-20">
+          <div className="mx-auto max-w-7xl px-6 w-full">
+            <motion.div
+              key={`content-${current}`}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.9 }}
+              className="text-center max-w-4xl mx-auto"
             >
-              <div
-                className={`h-0.5 rounded-full transition-all duration-500 ${
-                  index === current
-                    ? "w-12 bg-white"
-                    : "w-6 bg-white/30 group-hover:bg-white/50"
-                }`}
-              />
-            </button>
-          ))}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight mb-4 drop-shadow-lg">
+                {banners[current].title}
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/80 max-w-3xl mx-auto mb-8 md:mb-10 drop-shadow-md">
+                {banners[current].subtitle}
+              </p>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("contacto")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg transition-all hover:scale-105 hover:shadow-primary active:scale-95"
+              >
+                Cotizar ahora
+              </button>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-12 right-8 z-30 hidden lg:block"
+        <button
+          onClick={prev}
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/25 backdrop-blur-sm transition-all"
+          aria-label="Banner anterior"
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-500 [writing-mode:vertical-lr]">
-              Scroll
-            </span>
-            <div className="h-12 w-px bg-gradient-to-b from-neutral-500 to-transparent" />
-          </motion.div>
-        </motion.div>
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/25 backdrop-blur-sm transition-all"
+          aria-label="Siguiente banner"
+        >
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
+        </button>
+
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
+          {banners.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`rounded-full transition-all duration-300 ${i === current
+                  ? "bg-primary w-8 sm:w-10 h-2.5 sm:h-3"
+                  : "bg-primary-foreground/40 hover:bg-primary-foreground/60 w-2.5 sm:w-3 h-2.5 sm:h-3"
+                }`}
+              aria-label={`Ir al banner ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* ── Distintivos ────────────────────────────────── */}
-      <div className="relative border-b border-neutral-100 bg-white">
+      {/* ── Distintivos ──────────────────────────────── */}
+      <div className="relative border-b border-border bg-background">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {distintivos.map((item, index) => (
@@ -178,30 +125,22 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{
-                  delay: index * 0.15,
-                  duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="group relative rounded-2xl border border-neutral-100 bg-neutral-50/50 p-8 transition-all duration-500 hover:border-neutral-200 hover:bg-white hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
+                transition={{ delay: index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative rounded-2xl border border-border bg-muted/50 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-border hover:bg-background hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-black text-lg text-white transition-transform duration-300 group-hover:scale-110">
-                  {item.icon}
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110">
+                  <item.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mb-3 text-lg font-bold tracking-tight text-black">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-neutral-500">
-                  {item.description}
-                </p>
+                <h3 className="mb-3 text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* ── Experiencia y Respaldo ──────────────────────── */}
-      <div className="border-b border-neutral-100 bg-white">
+      {/* ── Experiencia ───────────────────────────────── */}
+      <div className="border-b border-border bg-background">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <motion.div
@@ -210,13 +149,13 @@ export default function Hero() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Trayectoria
               </p>
-              <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl">
+              <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
                 {experienciaTitle}
               </h2>
-              <div className="h-1 w-16 rounded-full bg-black" />
+              <div className="h-1 w-16 rounded-full bg-primary" />
             </motion.div>
 
             <div className="space-y-6">
@@ -226,19 +165,13 @@ export default function Hero() {
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    delay: index * 0.15,
-                    duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="flex items-start gap-4 rounded-xl border border-transparent p-4 transition-all duration-300 hover:border-neutral-100 hover:bg-neutral-50"
+                  transition={{ delay: index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-start gap-4 rounded-xl border border-transparent p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-muted"
                 >
-                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-black text-xs font-bold text-white">
+                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
                     {String(item.id).padStart(2, "0")}
                   </div>
-                  <p className="text-base leading-relaxed text-neutral-600">
-                    {item.text}
-                  </p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{item.text}</p>
                 </motion.div>
               ))}
             </div>
