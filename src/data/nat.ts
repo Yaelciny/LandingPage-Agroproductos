@@ -9,7 +9,17 @@
 //   siteData.seoMetadata   →  meta tags para SEO
 // ============================================================
 
-import { Zap, Star, Handshake, Package, Truck, FlaskConical, Sprout, Shield, Users } from "lucide-react";
+import type { StaticImageData } from "next/image";
+import { Zap, Star, Handshake, Package, Truck, FlaskConical, Sprout, Shield, Users, Lightbulb, Crosshair, Gem } from "lucide-react";
+import hero1 from "@/src/assets/hero/hero-1.png";
+import hero2 from "@/src/assets/hero/hero-2.png";
+import hero3 from "@/src/assets/hero/hero-3.png";
+import experienciaImg from "@/src/assets/experiencia/experiencia.png";
+import prodFertilizantes from "@/src/assets/productos/producto-fertilizantes.png";
+import prodInsumos from "@/src/assets/productos/producto-insumos.png";
+import prodAtencion from "@/src/assets/productos/producto-atencion.png";
+import prodLogistica from "@/src/assets/productos/producto-logistica.png";
+
 
 // ─── Tipos ───────────────────────────────────────────────────
 // Define la forma de cada seccion del sitio. Todas las interfaces
@@ -19,7 +29,7 @@ export interface BannerSlide {
   id: number;
   title: string;
   subtitle: string;
-  image: string;
+  image: string | StaticImageData;
 }
 
 export interface Distintivo {
@@ -34,11 +44,17 @@ export interface ExperienciaItem {
   text: string;
 }
 
+export interface SobreNosotrosCard {
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
 export interface SobreNosotrosData {
   sectionTitle: string;
-  concepto: { title: string; description: string };
-  mision: { title: string; description: string };
-  valorAgregado: { title: string; description: string };
+  concepto: SobreNosotrosCard;
+  mision: SobreNosotrosCard;
+  valorAgregado: SobreNosotrosCard;
 }
 
 export interface SolucionItem {
@@ -59,6 +75,7 @@ export interface ProductoSector {
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
+  image: string | StaticImageData;
 }
 
 // Estructura plana de contacto — sin objetos anidados
@@ -91,6 +108,7 @@ export interface SiteData {
   banners: BannerSlide[];
   distintivos: Distintivo[];
   experienciaTitle: string;
+  experienciaImage: string | StaticImageData;
   experienciaItems: ExperienciaItem[];
   sobreNosotros: SobreNosotrosData;
   soluciones: SolucionesData;
@@ -129,19 +147,19 @@ export const siteData: SiteData = {
       id: 1,
       title: "Agroproductos y servicios del centro.",
       subtitle: "Tu aliado estratégico en el campo y la producción agrícola.",
-      image: "/images/hero-1.svg",
+      image: hero1,
     },
     {
       id: 2,
       title: "Rapidez y Calidad en cada Entrega.",
       subtitle: "Soluciones inmediatas en fertilizantes e insumos para que tu cultivo nunca se detenga.",
-      image: "/images/hero-2.svg",
+      image: hero2,
     },
     {
       id: 3,
       title: "Compromiso Total con el Productor.",
       subtitle: "Respaldo y confianza técnica para optimizar el rendimiento de tus tierras.",
-      image: "/images/hero-3.svg",
+      image: hero3,
     },
   ],
 
@@ -167,6 +185,7 @@ export const siteData: SiteData = {
   ],
 
   experienciaTitle: "Experiencia y Respaldo en el Sector",
+  experienciaImage: experienciaImg,
 
   experienciaItems: [
     { id: 1, text: "Atención especializada para agricultores y grandes productores de cultivo." },
@@ -180,14 +199,17 @@ export const siteData: SiteData = {
     concepto: {
       title: "Concepto",
       description: "Somos una empresa dedicada a fortalecer el sector agrícola, posicionándonos como el aliado principal de quienes trabajan la tierra.",
+      icon: Lightbulb,
     },
     mision: {
       title: "Nuestra Misión",
       description: "Resolver de manera eficiente el suministro de insumos, asegurando que cada productor cuente con productos de alta calidad y la asesoría necesaria para hacer crecer su negocio.",
+      icon: Crosshair,
     },
     valorAgregado: {
       title: "Valor Agregado",
       description: "En Agroproductos y servicios del centro, no solo vendemos insumos; ofrecemos un compromiso inquebrantable con la productividad y la rapidez que el campo exige hoy en día.",
+      icon: Gem,
     },
   },
 
@@ -207,10 +229,10 @@ export const siteData: SiteData = {
   productosDescription: "Ofrecemos una gama completa de productos y servicios diseñados para impulsar el rendimiento de tu producción agrícola.",
 
   productosSectores: [
-    { id: 1, title: "Fertilizantes Especializados", description: "Nutrición vegetal avanzada para diversos tipos de suelo.", icon: Sprout },
-    { id: 2, title: "Insumos Agrícolas", description: "Todo lo necesario para la protección y cuidado de tus cultivos.", icon: Shield },
-    { id: 3, title: "Atención a Productores", description: "Soluciones a medida para agricultores independientes y empresas agrícolas.", icon: Users },
-    { id: 4, title: "Logística y Distribución", description: "Servicio de entrega eficiente mediante nuestras unidades de transporte.", icon: Truck },
+    { id: 1, title: "Fertilizantes Especializados", description: "Nutrición vegetal avanzada para diversos tipos de suelo.", icon: Sprout, image: prodFertilizantes },
+    { id: 2, title: "Insumos Agrícolas", description: "Todo lo necesario para la protección y cuidado de tus cultivos.", icon: Shield, image: prodInsumos },
+    { id: 3, title: "Atención a Productores", description: "Soluciones a medida para agricultores independientes y empresas agrícolas.", icon: Users, image: prodAtencion },
+    { id: 4, title: "Logística y Distribución", description: "Servicio de entrega eficiente mediante nuestras unidades de transporte.", icon: Truck, image: prodLogistica },
   ],
 
   // ─── Contacto ────────────────────────────────────────────

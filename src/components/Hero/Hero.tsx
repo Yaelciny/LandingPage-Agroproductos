@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import { siteData } from "@/src/data/nat";
 
 const { banners, distintivos, experienciaTitle, experienciaItems } = siteData;
@@ -44,14 +43,11 @@ export default function Hero() {
             transition={{ duration: 0.9 }}
             className="absolute inset-0"
           >
-            <Image
-              src={banners[current].image}
-              alt={banners[current].title}
-              fill
-              priority
-              className="object-cover"
-              sizes="100vw"
-            />
+            <div className="absolute inset-0 flex items-center justify-center bg-muted">
+              <span className="text-4xl font-bold tracking-widest text-muted-foreground/40 select-none">
+                Imagen
+              </span>
+            </div>
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/50 to-primary/80" />
           </motion.div>
         </AnimatePresence>
@@ -155,7 +151,12 @@ export default function Hero() {
               <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
                 {experienciaTitle}
               </h2>
-              <div className="h-1 w-16 rounded-full bg-primary" />
+              <div className="h-1 w-16 rounded-full bg-primary mb-8" />
+              <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-border flex items-center justify-center bg-muted">
+                <span className="text-2xl font-bold tracking-widest text-muted-foreground/40 select-none">
+                  Imagen
+                </span>
+              </div>
             </motion.div>
 
             <div className="space-y-6">

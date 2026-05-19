@@ -44,24 +44,33 @@ export default function Productos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative overflow-hidden rounded-2xl border border-border/60 bg-background p-8 transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-background transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
             >
-              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-0 z-10 transition-opacity duration-500 group-hover:opacity-100" />
 
-              <div className="mb-6 transition-transform duration-300 group-hover:scale-110">
-                <item.icon className="h-8 w-8 text-foreground/80" />
+              <div className="relative h-48 w-full overflow-hidden flex items-center justify-center bg-muted">
+                <span className="text-2xl font-bold tracking-widest text-muted-foreground/40 select-none">
+                  Imagen
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
               </div>
 
-              <h3 className="mb-3 text-lg font-bold tracking-tight text-foreground">
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {item.description}
-              </p>
+              <div className="relative flex-1 p-8 pt-4">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-transform duration-300 group-hover:-translate-y-1">
+                  <item.icon className="h-6 w-6 text-primary" />
+                </div>
 
-              <span className="absolute bottom-4 right-6 text-6xl font-black text-muted/50 transition-colors duration-500 group-hover:text-muted-foreground/20">
-                {String(item.id).padStart(2, "0")}
-              </span>
+                <h3 className="mb-3 text-lg font-bold tracking-tight text-foreground">
+                  {item.title}
+                </h3>
+                <p className="relative z-10 text-sm leading-relaxed text-muted-foreground">
+                  {item.description}
+                </p>
+
+                <span className="absolute bottom-4 right-6 z-0 select-none text-6xl font-black text-muted/30 transition-colors duration-500 group-hover:text-muted-foreground/10 pointer-events-none">
+                  {String(item.id).padStart(2, "0")}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>

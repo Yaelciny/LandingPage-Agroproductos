@@ -56,9 +56,9 @@ export default function SobreNosotros() {
               </div>
 
               <div className="relative">
-                <span className="mb-6 inline-block text-6xl font-black text-background/[0.04]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary transition-transform duration-300 group-hover:scale-110">
+                  <card.icon className="h-6 w-6 text-primary-foreground" />
+                </div>
 
                 <h3 className="mb-4 text-xl font-bold tracking-tight text-primary-foreground">
                   {card.title}
