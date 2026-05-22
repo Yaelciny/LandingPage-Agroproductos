@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { siteData } from "@/src/data/nat";
 import Image from "next/image";
-import experience from "@/src/assets/experiencia/Trayectoria.png";
+import experience from "@/src/assets/experiencia/Trayectoria.webp";
 
 const { banners, distintivos, experienciaTitle, experienciaItems } = siteData;
 

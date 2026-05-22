@@ -1,13 +1,13 @@
 import type { StaticImageData } from "next/image";
 import { Zap, Star, Handshake, Package, Truck, FlaskConical, Sprout, Shield, Users, Lightbulb, Crosshair, Gem } from "lucide-react";
-import banner1 from "@/src/assets/banners/Banner-1.png";
-import banner2 from "@/src/assets/banners/Banner-2.png";
-import banner3 from "@/src/assets/banners/Banner-3.png";
-import experienciaImg from "@/src/assets/experiencia/Trayectoria.png";
-import prodFertilizantes from "@/src/assets/productos/atencion.png";
-import prodInsumos from "@/src/assets/productos/fertilizantes.png";
-import prodAtencion from "@/src/assets/productos/insumos.png";
-import prodLogistica from "@/src/assets/productos/logisticas.png";
+import banner1 from "@/src/assets/banners/Banner-1.webp";
+import banner2 from "@/src/assets/banners/Banner-2.webp";
+import banner3 from "@/src/assets/banners/Banner-3.webp";
+import experienciaImg from "@/src/assets/experiencia/Trayectoria.webp";
+import prodFertilizantes from "@/src/assets/productos/atencion.webp";
+import prodInsumos from "@/src/assets/productos/fertilizantes.webp";
+import prodAtencion from "@/src/assets/productos/insumos.webp";
+import prodLogistica from "@/src/assets/productos/logisticas.webp";
 
 
 // ─── Tipos ───────────────────────────────────────────────────
