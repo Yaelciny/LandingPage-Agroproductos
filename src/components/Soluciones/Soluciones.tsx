@@ -22,7 +22,7 @@ export default function Soluciones() {
           className="mb-20"
         >
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-            Soluciones Agr&iacute;colas
+            Soluciones Agrícolas
           </p>
           <h2 className="mb-6 max-w-2xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             {soluciones.sectionTitle}

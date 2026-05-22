@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { siteData } from "@/src/data/nat";
+import Image from "next/image";
+import experience from "@/src/assets/experiencia/Trayectoria.png";
 
 const { banners, distintivos, experienciaTitle, experienciaItems } = siteData;
 
@@ -30,7 +32,7 @@ export default function Hero() {
     <section id="inicio" className="relative">
       {/* ── Carrusel ────────────────────────────────── */}
       <div
-        className="relative h-dvh overflow-hidden"
+        className="relative h-dvh overflow-hidden bg-black"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
@@ -43,11 +45,14 @@ export default function Hero() {
             transition={{ duration: 0.9 }}
             className="absolute inset-0"
           >
-            <div className="absolute inset-0 flex items-center justify-center bg-muted">
-              <span className="text-4xl font-bold tracking-widest text-muted-foreground/40 select-none">
-                Imagen
-              </span>
-            </div>
+            <Image
+              src={banners[current].image}
+              alt={banners[current].title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
             <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/50 to-primary/80" />
           </motion.div>
         </AnimatePresence>
@@ -102,8 +107,8 @@ export default function Hero() {
               key={i}
               onClick={() => setCurrent(i)}
               className={`rounded-full transition-all duration-300 ${i === current
-                  ? "bg-primary w-8 sm:w-10 h-2.5 sm:h-3"
-                  : "bg-primary-foreground/40 hover:bg-primary-foreground/60 w-2.5 sm:w-3 h-2.5 sm:h-3"
+                ? "bg-primary w-8 sm:w-10 h-2.5 sm:h-3"
+                : "bg-primary-foreground/40 hover:bg-primary-foreground/60 w-2.5 sm:w-3 h-2.5 sm:h-3"
                 }`}
               aria-label={`Ir al banner ${i + 1}`}
             />
@@ -153,9 +158,13 @@ export default function Hero() {
               </h2>
               <div className="h-1 w-16 rounded-full bg-primary mb-8" />
               <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-border flex items-center justify-center bg-muted">
-                <span className="text-2xl font-bold tracking-widest text-muted-foreground/40 select-none">
-                  Imagen
-                </span>
+                <Image
+                  src={experience}
+                  alt="Foto de experiencia"
+                  sizes="100vw"
+                  className="object-cover object-center"
+                  priority
+                />
               </div>
             </motion.div>
 

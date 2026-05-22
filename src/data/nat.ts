@@ -1,24 +1,13 @@
-// ============================================================
-// nat.ts — Archivo centralizado de datos para la landing page
-// "Agroproductos y servicios del centro"
-//
-// 📦 Como usar:
-//   import { siteData } from "@/src/data/nat";
-//   siteData.banners  →  array de slides del carrusel
-//   siteData.contact       →  info de contacto, whatsapp, mapa
-//   siteData.seoMetadata   →  meta tags para SEO
-// ============================================================
-
 import type { StaticImageData } from "next/image";
 import { Zap, Star, Handshake, Package, Truck, FlaskConical, Sprout, Shield, Users, Lightbulb, Crosshair, Gem } from "lucide-react";
-import hero1 from "@/src/assets/hero/hero-1.png";
-import hero2 from "@/src/assets/hero/hero-2.png";
-import hero3 from "@/src/assets/hero/hero-3.png";
-import experienciaImg from "@/src/assets/experiencia/experiencia.png";
-import prodFertilizantes from "@/src/assets/productos/producto-fertilizantes.png";
-import prodInsumos from "@/src/assets/productos/producto-insumos.png";
-import prodAtencion from "@/src/assets/productos/producto-atencion.png";
-import prodLogistica from "@/src/assets/productos/producto-logistica.png";
+import banner1 from "@/src/assets/banners/Banner-1.png";
+import banner2 from "@/src/assets/banners/Banner-2.png";
+import banner3 from "@/src/assets/banners/Banner-3.png";
+import experienciaImg from "@/src/assets/experiencia/Trayectoria.png";
+import prodFertilizantes from "@/src/assets/productos/atencion.png";
+import prodInsumos from "@/src/assets/productos/fertilizantes.png";
+import prodAtencion from "@/src/assets/productos/insumos.png";
+import prodLogistica from "@/src/assets/productos/logisticas.png";
 
 
 // ─── Tipos ───────────────────────────────────────────────────
@@ -147,19 +136,19 @@ export const siteData: SiteData = {
       id: 1,
       title: "Agroproductos y servicios del centro.",
       subtitle: "Tu aliado estratégico en el campo y la producción agrícola.",
-      image: hero1,
+      image: banner1,
     },
     {
       id: 2,
       title: "Rapidez y Calidad en cada Entrega.",
       subtitle: "Soluciones inmediatas en fertilizantes e insumos para que tu cultivo nunca se detenga.",
-      image: hero2,
+      image: banner2,
     },
     {
       id: 3,
       title: "Compromiso Total con el Productor.",
       subtitle: "Respaldo y confianza técnica para optimizar el rendimiento de tus tierras.",
-      image: hero3,
+      image: banner3,
     },
   ],
 

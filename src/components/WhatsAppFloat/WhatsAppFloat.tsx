@@ -45,9 +45,6 @@ export default function WhatsAppFloat() {
                 exit={{ opacity: 0, y: 10, scale: 0.9 }}
                 className="relative rounded-2xl bg-primary px-4 py-3 text-sm text-primary-foreground shadow-lg"
               >
-                <p className="whitespace-nowrap font-medium">
-                  Escr&iacute;benos por WhatsApp
-                </p>
                 <div className="absolute -bottom-1 right-6 h-3 w-3 rotate-45 bg-primary" />
               </motion.div>
             )}
