@@ -37,18 +37,6 @@ export default function WhatsAppFloat() {
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
           className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
         >
-          <AnimatePresence>
-            {showTooltip && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                className="relative rounded-2xl bg-primary px-4 py-3 text-sm text-primary-foreground shadow-lg"
-              >
-                <div className="absolute -bottom-1 right-6 h-3 w-3 rotate-45 bg-primary" />
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           <motion.a
             href={whatsappUrl}
