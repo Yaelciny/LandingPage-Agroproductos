@@ -2,8 +2,10 @@
 // ─── Footer ──────────────────────────────────────────────────
 // Muestra el nombre de la empresa, enlaces de navegacion,
 // servicios y datos de contacto. Los textos vienen de siteData.
+// Soporta navegacion por scroll (home) y por ruta (otras paginas).
 
 import { type LucideIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Sprout, MapPin, Phone, Mail } from "lucide-react";
 import { siteData } from "@/src/data/nat";
@@ -46,6 +48,27 @@ const footerLinks: FooterColumn[] = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const handleNav = (href: string) => {
+    // tel: y mailto: se dejan pasar directo
+    if (href.startsWith("tel:") || href.startsWith("mailto:")) return;
+
+    if (isHome) {
+      // Scroll suave dentro del home
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navegar al home + hash
+      window.location.href = `/${href}`;
+    }
+  };
+
+  // Determina si un href es un enlace externo (tel, mailto) que no necesita handleNav
+  const isExternalHref = (href: string) =>
+    href.startsWith("tel:") || href.startsWith("mailto:");
+
   return (
     <footer className="border-t border-border bg-primary">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
@@ -84,7 +107,12 @@ export default function Footer() {
                 {section.items.map((item) => (
                   <li key={item.label}>
                     <a
-                      href={item.href}
+                      href={isExternalHref(item.href) ? item.href : (isHome ? item.href : `/${item.href}`)}
+                      onClick={(e) => {
+                        if (isExternalHref(item.href)) return;
+                        e.preventDefault();
+                        handleNav(item.href);
+                      }}
                       className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary-foreground"
                     >
                       {item.icon && <item.icon className="h-3.5 w-3.5 shrink-0" />}

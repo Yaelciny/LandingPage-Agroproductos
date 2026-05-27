@@ -3,10 +3,13 @@
 // Menu fijo con enlaces a las secciones de la pagina. En
 // dispositivos moviles se convierte en un menu hamburguesa.
 // Los enlaces se leen desde siteData.navLinks.
+// Soporta navegacion por scroll (home) y por ruta (/productos).
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteData } from "@/src/data/nat";
+import Link from "next/link";
 
 const { navLinks } = siteData;
 import { Button } from "@/src/components/ui/button";
@@ -14,11 +17,19 @@ import { Menu, X, Sprout } from "lucide-react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   const handleNav = (href: string) => {
     setOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    if (isHome) {
+      // Scroll suave dentro del home
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navegar al home + hash
+      window.location.href = `/${href}`;
+    }
   };
 
   return (
@@ -31,32 +42,31 @@ export default function Navbar() {
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            <motion.a
-              href="#inicio"
-              className="flex items-center gap-2 group"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNav("#inicio");
-              }}
-            >
-              <div className="p-2 rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-105">
-                <Sprout size={24} />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-lg leading-tight uppercase tracking-wider text-foreground">
-                  Agroproductos
-                </span>
-                <span className="text-xs tracking-widest uppercase text-muted-foreground">
-                  y servicios del centro
-                </span>
-              </div>
-            </motion.a>
+            <motion.div className="flex items-center gap-2 group">
+              <Link
+                href="/"
+                className="flex items-center gap-2"
+                onClick={() => setOpen(false)}
+              >
+                <div className="p-2 rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-105">
+                  <Sprout size={24} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-bold text-lg leading-tight uppercase tracking-wider text-foreground">
+                    Agroproductos
+                  </span>
+                  <span className="text-xs tracking-widest uppercase text-muted-foreground">
+                    y servicios del centro
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
 
             <nav className="hidden lg:flex items-center gap-8">
               {navLinks.map((item, index) => (
                 <motion.a
                   key={item.href}
-                  href={item.href}
+                  href={isHome ? item.href : `/${item.href}`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNav(item.href);
@@ -70,6 +80,13 @@ export default function Navbar() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                 </motion.a>
               ))}
+              <Link
+                href="/productos"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+              >
+                Catálogo
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+              </Link>
             </nav>
 
             <div className="flex items-center gap-4">
@@ -106,7 +123,7 @@ export default function Navbar() {
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
-                    href={link.href}
+                    href={isHome ? link.href : `/${link.href}`}
                     onClick={(e) => {
                       e.preventDefault();
                       handleNav(link.href);
@@ -116,6 +133,13 @@ export default function Navbar() {
                     {link.label}
                   </a>
                 ))}
+                <Link
+                  href="/productos"
+                  onClick={() => setOpen(false)}
+                  className="py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors text-left font-medium"
+                >
+                  📦 Catálogo de Productos
+                </Link>
               </nav>
             </motion.div>
           )}

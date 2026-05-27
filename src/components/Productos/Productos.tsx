@@ -5,8 +5,10 @@
 // productosDescription, productosSectores).
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { siteData } from "@/src/data/nat";
 import Image from "next/image";
+import Link from "next/link";
 
 const { productosTitle, productosDescription, productosSectores } = siteData;
 
@@ -71,6 +73,23 @@ export default function Productos() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* CTA — Ver catálogo completo */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="mt-12 text-center"
+        >
+          <Link
+            href="/productos"
+            className="group inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-primary-foreground transition-all hover:scale-105 hover:shadow-primary active:scale-95"
+          >
+            Ver catálogo completo
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
         </motion.div>
       </div>
     </section>

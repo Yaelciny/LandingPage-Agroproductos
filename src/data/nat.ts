@@ -230,12 +230,12 @@ export const siteData: SiteData = {
     title: "Contacto",
     subtitle: "¿Listo para optimizar tu producción agrícola? Contáctanos y recibe asesoría personalizada.",
     infoTitle: "Información de Contacto",
-    address: "León, Guanajuato",
-    phone: "+52 (477) 000-0000",
+    address: "Blvd. Brisa de Sarandí 315, 37669 León de los Aldama, Gto.",
+    phone: "+52 479 428 87 04",
     email: "contacto@agroproductos.com",
-    whatsapp: "https://wa.me/524770000000?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20de%20fertilizantes.",
+    whatsapp: "https://wa.me/524794288704?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20de%20fertilizantes.",
     mapPlaceholder: "Mapa de Google Maps",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119131.1277054162!2d-101.71447722628937!3d21.124551766812634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bbfd1ab6ae1f5%3A0xc57f9d28b73b27a7!2sLe%C3%B3n%2C%20Gto.!5e0!3m2!1ses!2smx!4v1!4m3!3m2!1ses!2smx",
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.390133063356!2d-101.7658604883323!3d21.17665548042865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bc6dcb105c5c7%3A0x752b84dba73e2af4!2sBlvd.%20Brisa%20de%20Sarand%C3%AD%20315%2C%2037669%20Le%C3%B3n%20de%20los%20Aldama%2C%20Gto.!5e0!3m2!1ses-419!2smx!4v1779818585533!5m2!1ses-419!2smx",
   },
 
   // ─── Footer ──────────────────────────────────────────────
@@ -253,4 +253,102 @@ export const siteData: SiteData = {
     ogImage: "/og-image.jpg",
     url: "https://agroproductos.com",
   },
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  CATÁLOGO DE PRODUCTOS — Datos para la página /productos
+// ═══════════════════════════════════════════════════════════════
+
+export interface CatalogProduct {
+  name: string;
+}
+
+export interface CatalogCategory {
+  id: number;
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+  products: CatalogProduct[];
+}
+
+export const catalogData = {
+  heroTitle: "Agroproductos y servicios del centro",
+  heroDescription:
+    "Importación, distribución, fabricación, comercialización al por mayor y por menor, transportación y almacenamiento, de maquinaria, productos químicos, materias primas, suministros, fertilizantes e insumos en general para la industria del campo.",
+
+  categories: [
+    {
+      id: 1,
+      title: "Ácidos y Bases",
+      description: "Productos químicos fundamentales para la formulación agrícola e industrial.",
+      icon: FlaskConical,
+      products: [
+        { name: "Hidróxido de Sodio Escamas" },
+        { name: "Hidróxido de Potasio Escamas" },
+        { name: "Ácido Clorhídrico" },
+        { name: "Ácido Sulfúrico" },
+        { name: "Ácido Nítrico" },
+        { name: "Ácido Acético Glacial" },
+        { name: "Ácido Fosfórico" },
+        { name: "Ácido Bórico" },
+        { name: "Formol 37.7%" },
+      ],
+    },
+    {
+      id: 2,
+      title: "Fertilizantes Nitrogenados",
+      description: "Fuentes de nitrógeno esenciales para el crecimiento vegetal.",
+      icon: Sprout,
+      products: [
+        { name: "Sulfato de Amonio" },
+        { name: "Urea Prilada" },
+        { name: "Urea Fertilizante" },
+        { name: "Cloruro de Amonio" },
+        { name: "Nitrato de Calcio" },
+        { name: "Nitrato de Potasio" },
+        { name: "Fosfonitrato" },
+      ],
+    },
+    {
+      id: 3,
+      title: "Fertilizantes Fosfatados",
+      description: "Compuestos de fósforo para el desarrollo de raíces y floración.",
+      icon: Package,
+      products: [
+        { name: "Fosfato Diamónico (DAP)" },
+        { name: "Fosfato Monoamónico (MAP)" },
+        { name: "MAP" },
+        { name: "Complejo Triple 16" },
+      ],
+    },
+    {
+      id: 4,
+      title: "Sulfatos y Minerales",
+      description: "Micronutrientes y minerales para la corrección de suelos.",
+      icon: Gem,
+      products: [
+        { name: "Sulfato de Magnesio" },
+        { name: "Sulfato de Magnesio 32%" },
+        { name: "Sulfato de Cobre" },
+        { name: "Sulfato de Potasio" },
+        { name: "Sulfato Ferroso Heptahidratado" },
+        { name: "Bórax Decahidrato" },
+        { name: "Caolín Industrial" },
+        { name: "Nitrito de Potasio" },
+      ],
+    },
+    {
+      id: 5,
+      title: "Especializados y Servicios",
+      description: "Productos premium e infraestructura para el agro moderno.",
+      icon: Shield,
+      products: [
+        { name: "Biofertilizantes" },
+        { name: "Fertilizantes Especializados" },
+        { name: "Agroquímicos Especializados" },
+        { name: "Insumos para la manufactura de insecticidas, biocidas, acaricidas y fungicidas" },
+        { name: "Infraestructuras para el riego y plantaciones" },
+      ],
+    },
+  ] as CatalogCategory[],
 };
