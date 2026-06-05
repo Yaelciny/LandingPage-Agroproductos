@@ -142,7 +142,7 @@ export default function ProductosPage() {
                     duration: 0.7,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+                  className="group mb-14 rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
                 >
                   {/* Category header */}
                   <div className="flex items-center gap-4 border-b border-border bg-muted/30 px-6 py-5 md:px-8">
