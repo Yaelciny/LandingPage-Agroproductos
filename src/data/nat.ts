@@ -1,74 +1,96 @@
-import type { StaticImageData } from "next/image";
-import { Zap, Star, Handshake, Package, Truck, FlaskConical, Sprout, Shield, Users, Lightbulb, Crosshair, Gem } from "lucide-react";
+import { StaticImageData } from "next/image";
 import banner1 from "@/src/assets/banners/Banner-1.webp";
 import banner2 from "@/src/assets/banners/Banner-2.webp";
 import banner3 from "@/src/assets/banners/Banner-3.webp";
 import experienciaImg from "@/src/assets/experiencia/Trayectoria.webp";
-import prodFertilizantes from "@/src/assets/productos/atencion.webp";
-import prodInsumos from "@/src/assets/productos/fertilizantes.webp";
-import prodAtencion from "@/src/assets/productos/insumos.webp";
+import prodAtencion from "@/src/assets/productos/atencion.webp";
+import prodFertilizantes from "@/src/assets/productos/fertilizantes.webp";
+import prodInsumos from "@/src/assets/productos/insumos.webp";
 import prodLogistica from "@/src/assets/productos/logisticas.webp";
+import logoCompleto from "@/src/assets/logo/logo-completo.png";
 
+import {
+  Zap,
+  Star,
+  Handshake,
+  Package,
+  Truck,
+  FlaskConical,
+  Sprout,
+  Shield,
+  Users,
+  Lightbulb,
+  Crosshair,
+  Gem,
+  type LucideIcon,
+} from "lucide-react";
 
-// ─── Tipos ───────────────────────────────────────────────────
-// Define la forma de cada seccion del sitio. Todas las interfaces
-// se exportan por si necesitas usarlas en componentes.
+export interface Brand {
+  name: string;
+  suffix: string;
+  full: string;
+}
 
-export interface BannerSlide {
+export interface NavLink {
+  id: string;
+  label: string;
+  href: string;
+}
+
+export interface Banner {
   id: number;
   title: string;
   subtitle: string;
   image: string | StaticImageData;
 }
 
-export interface Distintivo {
+export interface Feature {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
 }
 
-export interface ExperienciaItem {
+export interface ExperienceItem {
   id: number;
   text: string;
 }
 
-export interface SobreNosotrosCard {
+export interface AboutCard {
   title: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
 }
 
-export interface SobreNosotrosData {
+export interface AboutSection {
   sectionTitle: string;
-  concepto: SobreNosotrosCard;
-  mision: SobreNosotrosCard;
-  valorAgregado: SobreNosotrosCard;
+  concepto: AboutCard;
+  mision: AboutCard;
+  valorAgregado: AboutCard;
 }
 
-export interface SolucionItem {
+export interface Solution {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
 }
 
-export interface SolucionesData {
+export interface SolutionsSection {
   sectionTitle: string;
   sectionDescription: string;
-  items: SolucionItem[];
+  items: Solution[];
 }
 
-export interface ProductoSector {
+export interface ProductSector {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   image: string | StaticImageData;
 }
 
-// Estructura plana de contacto — sin objetos anidados
-export interface ContactData {
+export interface ContactInfo {
   title: string;
   subtitle: string;
   infoTitle: string;
@@ -80,12 +102,6 @@ export interface ContactData {
   mapUrl: string;
 }
 
-export interface NavLink {
-  id: string;
-  label: string;
-  href: string;
-}
-
 export interface FooterData {
   companyName: string;
   description: string;
@@ -93,18 +109,22 @@ export interface FooterData {
 }
 
 export interface SiteData {
+  logo: string | StaticImageData;
+  brand: Brand;
+  siteName: string;
+  siteDescription: string;
   navLinks: NavLink[];
-  banners: BannerSlide[];
-  distintivos: Distintivo[];
+  banners: Banner[];
+  distintivos: Feature[];
   experienciaTitle: string;
   experienciaImage: string | StaticImageData;
-  experienciaItems: ExperienciaItem[];
-  sobreNosotros: SobreNosotrosData;
-  soluciones: SolucionesData;
+  experienciaItems: ExperienceItem[];
+  sobreNosotros: AboutSection;
+  soluciones: SolutionsSection;
   productosTitle: string;
   productosDescription: string;
-  productosSectores: ProductoSector[];
-  contact: ContactData;
+  productosSectores: ProductSector[];
+  contact: ContactInfo;
   footerData: FooterData;
   seoMetadata: {
     title: string;
@@ -115,22 +135,28 @@ export interface SiteData {
   };
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  SITE DATA — Edita aqui todos los textos e imagenes del sitio
-// ═══════════════════════════════════════════════════════════════
+export const brand: Brand = {
+  name: "Agroproductos",
+  suffix: "y servicios del centro",
+  full: "Agroproductos y servicios del centro",
+};
+
+export const navLinks: NavLink[] = [
+  { id: "inicio", label: "Inicio", href: "#inicio" },
+  { id: "nosotros", label: "Nosotros", href: "#nosotros" },
+  { id: "soluciones", label: "Soluciones", href: "#soluciones" },
+  { id: "productos", label: "Productos", href: "#productos" },
+  { id: "contacto", label: "Contacto", href: "#contacto" },
+];
 
 export const siteData: SiteData = {
+  logo: logoCompleto,
+  brand,
+  siteName: brand.full,
+  siteDescription:
+    "Tu aliado estratégico en el campo y la producción agrícola.",
+  navLinks,
 
-  // ─── Navegacion ──────────────────────────────────────────
-  navLinks: [
-    { id: "inicio", label: "Inicio", href: "#inicio" },
-    { id: "nosotros", label: "Nosotros", href: "#nosotros" },
-    { id: "soluciones", label: "Soluciones", href: "#soluciones" },
-    { id: "productos", label: "Productos", href: "#productos" },
-    { id: "contacto", label: "Contacto", href: "#contacto" },
-  ],
-
-  // ─── Hero / Inicio ───────────────────────────────────────
   banners: [
     {
       id: 1,
@@ -182,7 +208,6 @@ export const siteData: SiteData = {
     { id: 3, text: "Soluciones diseñadas para resolver las necesidades inmediatas del sector agropecuario." },
   ],
 
-  // ─── Sobre Nosotros ──────────────────────────────────────
   sobreNosotros: {
     sectionTitle: "Sobre Nosotros",
     concepto: {
@@ -202,7 +227,6 @@ export const siteData: SiteData = {
     },
   },
 
-  // ─── Soluciones Agricolas ────────────────────────────────
   soluciones: {
     sectionTitle: "Gestión Integral de Insumos para el Campo",
     sectionDescription: "Entendemos que el tiempo en la agricultura es vital. Por ello, nuestra propuesta de valor se centra en blindar tu ciclo de producción:",
@@ -213,7 +237,6 @@ export const siteData: SiteData = {
     ],
   },
 
-  // ─── Productos y Sectores ────────────────────────────────
   productosTitle: "Productos y Sectores",
   productosDescription: "Ofrecemos una gama completa de productos y servicios diseñados para impulsar el rendimiento de tu producción agrícola.",
 
@@ -224,8 +247,6 @@ export const siteData: SiteData = {
     { id: 4, title: "Logística y Distribución", description: "Servicio de entrega eficiente mediante nuestras unidades de transporte.", icon: Truck, image: prodLogistica },
   ],
 
-  // ─── Contacto ────────────────────────────────────────────
-  // Campos planos: title, subtitle, address, phone, email, whatsapp, mapUrl
   contact: {
     title: "Contacto",
     subtitle: "¿Listo para optimizar tu producción agrícola? Contáctanos y recibe asesoría personalizada.",
@@ -238,14 +259,12 @@ export const siteData: SiteData = {
     mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.390133063356!2d-101.7658604883323!3d21.17665548042865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bc6dcb105c5c7%3A0x752b84dba73e2af4!2sBlvd.%20Brisa%20de%20Sarand%C3%AD%20315%2C%2037669%20Le%C3%B3n%20de%20los%20Aldama%2C%20Gto.!5e0!3m2!1ses-419!2smx!4v1779818585533!5m2!1ses-419!2smx",
   },
 
-  // ─── Footer ──────────────────────────────────────────────
   footerData: {
     companyName: "Agroproductos y servicios del centro",
     description: "Tu aliado estratégico en el campo y la producción agrícola. León, Guanajuato.",
     copyright: `© ${new Date().getFullYear()} Agroproductos y servicios del centro. Todos los derechos reservados.`,
   },
 
-  // ─── Metadata SEO ────────────────────────────────────────
   seoMetadata: {
     title: "Agroproductos y servicios del centro | Fertilizantes e Insumos Agrícolas",
     description: "Tu aliado estratégico en el campo. Suministro eficiente de fertilizantes, insumos agrícolas y asesoría técnica en León, Guanajuato.",
@@ -255,10 +274,6 @@ export const siteData: SiteData = {
   },
 };
 
-// ═══════════════════════════════════════════════════════════════
-//  CATÁLOGO DE PRODUCTOS — Datos para la página /productos
-// ═══════════════════════════════════════════════════════════════
-
 export interface CatalogProduct {
   name: string;
 }
@@ -267,7 +282,7 @@ export interface CatalogCategory {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   products: CatalogProduct[];
 }
 

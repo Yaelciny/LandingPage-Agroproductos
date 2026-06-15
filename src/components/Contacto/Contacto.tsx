@@ -48,7 +48,7 @@ export default function Contact() {
             <div className="space-y-6 mb-12">
               {/* Direccion */}
               <div className="flex items-start gap-4">
-                <div className="mt-1 p-3 bg-muted rounded-xl shrink-0 icon-container-base">
+                <div className="mt-1 p-3 bg-brand/10 rounded-xl shrink-0 icon-container-base">
                   <MapPin size={24} />
                 </div>
                 <div>
@@ -63,7 +63,7 @@ export default function Contact() {
 
               {/* Telefono */}
               <div className="flex items-start gap-4">
-                <div className="mt-1 p-3 bg-muted rounded-xl shrink-0 icon-container-base">
+                <div className="mt-1 p-3 bg-brand/10 rounded-xl shrink-0 icon-container-base">
                   <Phone size={24} />
                 </div>
                 <div>
@@ -81,7 +81,7 @@ export default function Contact() {
 
               {/* Correo */}
               <div className="flex items-start gap-4">
-                <div className="mt-1 p-3 bg-muted rounded-xl shrink-0 icon-container-base">
+                <div className="mt-1 p-3 bg-brand/10 rounded-xl shrink-0 icon-container-base">
                   <Mail size={24} />
                 </div>
                 <div>

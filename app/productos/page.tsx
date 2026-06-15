@@ -146,7 +146,7 @@ export default function ProductosPage() {
                 >
                   {/* Category header */}
                   <div className="flex items-center gap-4 border-b border-border bg-muted/30 px-6 py-5 md:px-8">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-primary-foreground transition-transform duration-300 group-hover:scale-110">
                       <category.icon className="h-5 w-5" />
                     </div>
                     <div>
@@ -173,7 +173,7 @@ export default function ProductosPage() {
                         transition={{ delay: prodIdx * 0.03 }}
                         className="flex items-center gap-3 bg-card px-6 py-4 transition-colors duration-300 hover:bg-muted/50"
                       >
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-foreground">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
                           <Package className="h-4 w-4" />
                         </div>
                         <span className="text-sm font-medium text-foreground leading-tight">

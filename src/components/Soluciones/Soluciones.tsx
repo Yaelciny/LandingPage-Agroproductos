@@ -43,7 +43,7 @@ export default function Soluciones() {
               className="group relative"
             >
               <div className="relative overflow-hidden rounded-2xl border border-border bg-muted/50 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-border hover:bg-background hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary transition-transform duration-300 group-hover:scale-110">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand transition-transform duration-300 group-hover:scale-110">
                   <item.icon className="h-6 w-6 text-primary-foreground" />
                 </div>
 

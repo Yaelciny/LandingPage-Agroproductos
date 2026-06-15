@@ -56,7 +56,7 @@ export default function SobreNosotros() {
               </div>
 
               <div className="relative">
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary transition-transform duration-300 group-hover:scale-110">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand transition-transform duration-300 group-hover:scale-110">
                   <card.icon className="h-6 w-6 text-primary-foreground" />
                 </div>
 

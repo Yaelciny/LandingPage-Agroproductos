@@ -70,7 +70,7 @@ export default function Footer() {
     href.startsWith("tel:") || href.startsWith("mailto:");
 
   return (
-    <footer className="border-t border-border bg-primary">
+    <footer className="border-t border-border bg-[#111315]">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <motion.div

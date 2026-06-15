@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteData } from "@/src/data/nat";
 import Link from "next/link";
+import Image from "next/image";
 
 const { navLinks } = siteData;
 import { Button } from "@/src/components/ui/button";
@@ -42,23 +43,25 @@ export default function Navbar() {
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            <motion.div className="flex items-center gap-2 group">
+            <motion.div className="flex items-center group">
               <Link
                 href="/"
-                className="flex items-center gap-2"
-                onClick={() => setOpen(false)}
+                className="flex items-center"
+                onClick={() => {
+                  setOpen(false);
+                  if (isHome) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
               >
-                <div className="p-2 rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-105">
-                  <Sprout size={24} />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-bold text-lg leading-tight uppercase tracking-wider text-foreground">
-                    Agroproductos
-                  </span>
-                  <span className="text-xs tracking-widest uppercase text-muted-foreground">
-                    y servicios del centro
-                  </span>
-                </div>
+                <Image
+                  src={siteData.logo}
+                  alt={siteData.brand.name}
+                  width={180}
+                  height={40}
+                  priority
+                  className="h-10 md:h-12 w-auto"
+                />
               </Link>
             </motion.div>
 
@@ -77,7 +80,7 @@ export default function Navbar() {
                   transition={{ delay: index * 0.1 }}
                 >
                   {item.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-light transition-all duration-300 group-hover:w-full" />
                 </motion.a>
               ))}
               <Link
@@ -85,7 +88,7 @@ export default function Navbar() {
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
               >
                 Catálogo
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-light transition-all duration-300 group-hover:w-full" />
               </Link>
             </nav>
 
@@ -138,7 +141,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors text-left font-medium"
                 >
-                  📦 Catálogo de Productos
+                  Catálogo de Productos
                 </Link>
               </nav>
             </motion.div>

@@ -107,7 +107,7 @@ export default function Hero() {
               key={i}
               onClick={() => setCurrent(i)}
               className={`rounded-full transition-all duration-300 ${i === current
-                ? "bg-primary w-8 sm:w-10 h-2.5 sm:h-3"
+                ? "bg-brand-light w-8 sm:w-10 h-2.5 sm:h-3"
                 : "bg-primary-foreground/40 hover:bg-primary-foreground/60 w-2.5 sm:w-3 h-2.5 sm:h-3"
                 }`}
               aria-label={`Ir al banner ${i + 1}`}
@@ -129,7 +129,7 @@ export default function Hero() {
                 transition={{ delay: index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative rounded-2xl border border-border bg-muted/50 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-border hover:bg-background hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-brand text-primary-foreground transition-transform duration-300 group-hover:scale-110">
                   <item.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mb-3 text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
@@ -156,7 +156,7 @@ export default function Hero() {
               <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
                 {experienciaTitle}
               </h2>
-              <div className="h-1 w-16 rounded-full bg-primary mb-8" />
+              <div className="h-1 w-16 rounded-full bg-brand-light mb-8" />
               <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-border flex items-center justify-center bg-muted">
                 <Image
                   src={experience}
@@ -178,7 +178,7 @@ export default function Hero() {
                   transition={{ delay: index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-start gap-4 rounded-xl border border-transparent p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-muted"
                 >
-                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
+                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand text-xs font-bold text-primary-foreground">
                     {String(item.id).padStart(2, "0")}
                   </div>
                   <p className="text-base leading-relaxed text-muted-foreground">{item.text}</p>
