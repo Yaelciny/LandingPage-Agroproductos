@@ -18,11 +18,11 @@ export default function SobreNosotros() {
   return (
     <section
       id="nosotros"
-      className="relative overflow-hidden bg-primary py-24 lg:py-32"
+      className="relative overflow-hidden bg-background py-24 lg:py-32"
     >
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-20 h-80 w-80 rounded-full bg-background/[0.02] blur-3xl" />
-        <div className="absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-background/[0.02] blur-3xl" />
+        <div className="absolute -left-40 top-20 h-80 w-80 rounded-full bg-primary/[0.02] blur-3xl" />
+        <div className="absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-primary/[0.02] blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -36,7 +36,7 @@ export default function SobreNosotros() {
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
             Quienes somos
           </p>
-          <h2 className="text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             {sobreNosotros.sectionTitle}
           </h2>
         </motion.div>
@@ -49,10 +49,10 @@ export default function SobreNosotros() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative overflow-hidden rounded-2xl border border-primary bg-background/[0.03] p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-border hover:bg-background/[0.06] hover:shadow-[0_8px_30px_rgba(255,255,255,0.04)]"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-muted/50 p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-border hover:bg-background hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
             >
               <div className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-background/[0.08] to-transparent" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-primary/[0.04] to-transparent" />
               </div>
 
               <div className="relative">
@@ -60,7 +60,7 @@ export default function SobreNosotros() {
                   <card.icon className="h-6 w-6 text-primary-foreground" />
                 </div>
 
-                <h3 className="mb-4 text-xl font-bold tracking-tight text-primary-foreground">
+                <h3 className="mb-4 text-xl font-bold tracking-tight text-foreground">
                   {card.title}
                 </h3>
 
@@ -69,7 +69,7 @@ export default function SobreNosotros() {
                 </p>
               </div>
 
-              <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-background/10 to-transparent" />
+              <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
             </motion.div>
           ))}
         </div>

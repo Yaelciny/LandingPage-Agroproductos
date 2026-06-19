@@ -16,7 +16,7 @@ export default function Productos() {
   return (
     <section
       id="productos"
-      className="relative overflow-hidden border-t border-border bg-muted py-24 lg:py-32"
+      className="relative overflow-hidden border-t border-border bg-background py-24 lg:py-32"
     >
       <div className="pointer-events-none absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-muted-foreground/5 blur-3xl" />
 

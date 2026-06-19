@@ -7,8 +7,9 @@
 import { type LucideIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Sprout, MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { siteData } from "@/src/data/nat";
+import Image from "next/image";
 
 const { footerData, navLinks, contact } = siteData;
 
@@ -79,17 +80,14 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-background">
-                <Sprout className="h-5 w-5 text-foreground" />
-              </div>
-              <span className="text-sm font-semibold text-primary-foreground">
-                {footerData.companyName}
-              </span>
-            </div>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              {footerData.description}
-            </p>
+            <Image
+              src={siteData.logo}
+              alt={siteData.brand.name}
+              width={250}
+              height={40}
+              className="h-auto w-auto object-contain"
+              unoptimized
+            />
           </motion.div>
 
           {footerLinks.map((section, idx) => (
@@ -100,7 +98,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 + idx * 0.1, duration: 0.6 }}
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted">
                 {section.title}
               </p>
               <ul className="space-y-3">
@@ -115,7 +113,7 @@ export default function Footer() {
                       }}
                       className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary-foreground"
                     >
-                      {item.icon && <item.icon className="h-3.5 w-3.5 shrink-0" />}
+                      {item.icon && <item.icon className="h-5 w-5 shrink-0 text-brand" />}
                       {item.label}
                     </a>
                   </li>
@@ -125,7 +123,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 border-t border-border pt-8">
+        <div className="mt-16 border-t border-muted-foreground pt-8">
           <p className="text-center text-xs text-muted-foreground">
             {footerData.copyright}
           </p>

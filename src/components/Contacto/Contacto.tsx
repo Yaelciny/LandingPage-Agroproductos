@@ -10,7 +10,7 @@ import { siteData } from "@/src/data/nat";
 
 export default function Contact() {
   return (
-    <section id="contacto" className="section-padding bg-muted">
+    <section id="contacto" className="section-padding bg-background">
       <div className="container">
         {/* Encabezado */}
         <div className="text-center mb-16">
@@ -39,7 +39,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-background p-8 md:p-12 rounded-3xl border border-border shadow-sm"
+            className="bg-muted/50 p-8 md:p-12 rounded-3xl border border-border shadow-sm"
           >
             <h3 className="text-2xl font-bold text-foreground mb-8">
               {siteData.contact.infoTitle}

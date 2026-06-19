@@ -1,16 +1,18 @@
 "use client";
-// ─── Página de Catálogo de Productos ─────────────────────────
-// Muestra el catálogo completo organizado por categorías.
+// ─── Pagina de Catalogo de Productos ─────────────────────────
+// Muestra el catalogo completo organizado por categorias.
 // Reutiliza Navbar, Footer y WhatsAppFloat del sitio principal.
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowLeft, ArrowRight, Package } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/src/components/Navbar/Navbar";
 import Footer from "@/src/components/Footer/Footer";
 import WhatsAppFloat from "@/src/components/WhatsAppFloat/WhatsAppFloat";
 import { catalogData, siteData } from "@/src/data/nat";
+import catalogoImg from "@/src/assets/catalogo/catalogo.png";
 
 const { categories, heroTitle, heroDescription } = catalogData;
 const { contact } = siteData;
@@ -46,12 +48,24 @@ export default function ProductosPage() {
     <>
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 mt-20">
         {/* ── Hero ────────────────────────────────────── */}
         <section className="relative overflow-hidden bg-primary pt-28 pb-20 md:pt-36 md:pb-28">
-          {/* Decorative blurs */}
-          <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary-foreground/5 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-primary-foreground/5 blur-3xl" />
+          {/* Imagen de fondo y capa superpuesta */}
+          <div className="absolute inset-0">
+            <Image
+              src={catalogoImg}
+              alt="Fondo de catálogo"
+              fill
+              className="object-cover object-center"
+              placeholder="blur"
+              priority
+              sizes="100vw"
+            />
+            {/* Degradado oscuro localizado a la izquierda y tinte oscuro suave general para hacer resaltar el texto manteniendo el lado derecho brillante */}
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-transparent lg:max-w-5xl" />
+          </div>
 
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <motion.div
@@ -67,17 +81,18 @@ export default function ProductosPage() {
                 Volver al inicio
               </Link>
 
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/50">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/50 drop-shadow-sm">
                 Catálogo completo
               </p>
-              <h1 className="mb-6 text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl xl:text-6xl max-w-3xl">
+              <h1 className="mb-6 text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl xl:text-6xl max-w-3xl drop-shadow-md">
                 {heroTitle}
               </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-primary-foreground/70 lg:text-lg">
+              <p className="max-w-2xl text-base leading-relaxed text-primary-foreground/70 lg:text-lg drop-shadow-sm">
                 {heroDescription}
               </p>
             </motion.div>
-            {/* Stats strip */}
+
+            {/* Franja de estadisticas */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -106,10 +121,10 @@ export default function ProductosPage() {
 
 
 
-        {/* ── Categorías con productos ────────────────── */}
+        {/* ── Categorias con productos ────────────────── */}
         <section className="bg-background py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            {/* Section header */}
+            {/* Encabezado de seccion */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -129,7 +144,7 @@ export default function ProductosPage() {
               </p>
             </motion.div>
 
-            {/* Categories grid */}
+            {/* Grid de categorias */}
             <div className="space-y-8">
               {categories.map((category, catIdx) => (
                 <motion.div
@@ -144,7 +159,7 @@ export default function ProductosPage() {
                   }}
                   className="group mb-14 rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
                 >
-                  {/* Category header */}
+                  {/* Encabezado de categoria */}
                   <div className="flex items-center gap-4 border-b border-border bg-muted/30 px-6 py-5 md:px-8">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand text-primary-foreground transition-transform duration-300 group-hover:scale-110">
                       <category.icon className="h-5 w-5" />
@@ -162,7 +177,7 @@ export default function ProductosPage() {
                     </span>
                   </div>
 
-                  {/* Products grid */}
+                  {/* Grid de productos */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
                     {category.products.map((product, prodIdx) => (
                       <motion.div
@@ -188,8 +203,8 @@ export default function ProductosPage() {
           </div>
         </section>
 
-        {/* ── CTA section ────────────────────────────── */}
-        <section className="border-t border-border bg-muted">
+        {/* ── Seccion de CTA ──────────────────────────── */}
+        <section className="border-t border-border bg-background">
           <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

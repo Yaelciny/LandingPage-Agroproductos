@@ -78,7 +78,7 @@ export default function Hero() {
                     .getElementById("contacto")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg transition-all hover:scale-105 hover:shadow-primary active:scale-95"
+                className="bg-primary hover:bg-primary text-primary-foreground font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg transition-all hover:scale-105 hover:shadow-primary active:scale-95"
               >
                 Cotizar ahora
               </button>
@@ -117,7 +117,7 @@ export default function Hero() {
       </div>
 
       {/* ── Distintivos ──────────────────────────────── */}
-      <div className="relative border-b border-border bg-background">
+      <div className="relative border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {distintivos.map((item, index) => (
@@ -127,13 +127,13 @@ export default function Hero() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative rounded-2xl border border-border bg-muted/50 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-border hover:bg-background hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]"
+                className="group relative rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-gray-300 hover:bg-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-brand text-primary-foreground transition-transform duration-300 group-hover:scale-110">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10 text-brand transition-transform duration-300 group-hover:scale-110">
                   <item.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mb-3 text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                <h3 className="mb-3 text-lg font-bold tracking-tight text-gray-900">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-500">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -141,32 +141,44 @@ export default function Hero() {
       </div>
 
       {/* ── Experiencia ───────────────────────────────── */}
-      <div className="border-b border-border bg-background">
+      <div className="border-b border-white/10 bg-[#111315]">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
           <div className="grid items-center gap-16 lg:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Trayectoria
-              </p>
-              <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">
-                {experienciaTitle}
-              </h2>
-              <div className="h-1 w-16 rounded-full bg-brand-light mb-8" />
-              <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-border flex items-center justify-center bg-muted">
+            <div>
+              {/* Text content */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+                  Trayectoria
+                </p>
+                <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
+                  {experienciaTitle}
+                </h2>
+                <div className="h-1 w-16 rounded-full bg-brand-light mb-8" />
+              </motion.div>
+
+              {/* Image with standalone clean animation */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative mt-8 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-white/10 flex items-center justify-center bg-[#1a1d20]"
+              >
                 <Image
                   src={experience}
                   alt="Foto de experiencia"
-                  sizes="100vw"
-                  className="object-cover object-center"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
                   priority
                 />
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
             <div className="space-y-6">
               {experienciaItems.map((item, index) => (
@@ -176,12 +188,12 @@ export default function Hero() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex items-start gap-4 rounded-xl border border-transparent p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-muted"
+                  className="flex items-start gap-4 rounded-xl border border-transparent p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/10 hover:bg-white/[0.03]"
                 >
                   <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand text-xs font-bold text-primary-foreground">
                     {String(item.id).padStart(2, "0")}
                   </div>
-                  <p className="text-base leading-relaxed text-muted-foreground">{item.text}</p>
+                  <p className="text-base leading-relaxed text-white/60">{item.text}</p>
                 </motion.div>
               ))}
             </div>

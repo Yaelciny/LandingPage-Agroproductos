@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 import banner1 from "@/src/assets/banners/Banner-1.webp";
-import banner2 from "@/src/assets/banners/Banner-2.webp";
+import banner2 from "@/src/assets/banners/Banner-2.png";
 import banner3 from "@/src/assets/banners/Banner-3.webp";
 import experienciaImg from "@/src/assets/experiencia/Trayectoria.webp";
 import prodAtencion from "@/src/assets/productos/atencion.webp";
@@ -8,6 +8,7 @@ import prodFertilizantes from "@/src/assets/productos/fertilizantes.webp";
 import prodInsumos from "@/src/assets/productos/insumos.webp";
 import prodLogistica from "@/src/assets/productos/logisticas.webp";
 import logoCompleto from "@/src/assets/logo/logo-completo.png";
+import logo from "@/src/assets/logo/logo.png";
 
 import {
   Zap,
@@ -109,7 +110,8 @@ export interface FooterData {
 }
 
 export interface SiteData {
-  logo: string | StaticImageData;
+  logoCompleto: StaticImageData;
+  logo: StaticImageData;
   brand: Brand;
   siteName: string;
   siteDescription: string;
@@ -147,10 +149,12 @@ export const navLinks: NavLink[] = [
   { id: "soluciones", label: "Soluciones", href: "#soluciones" },
   { id: "productos", label: "Productos", href: "#productos" },
   { id: "contacto", label: "Contacto", href: "#contacto" },
+  { id: "catalogo", label: "Catálogo", href: "/productos" },
 ];
 
 export const siteData: SiteData = {
-  logo: logoCompleto,
+  logo: logo,
+  logoCompleto: logoCompleto,
   brand,
   siteName: brand.full,
   siteDescription:

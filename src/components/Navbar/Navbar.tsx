@@ -6,7 +6,7 @@
 // Soporta navegacion por scroll (home) y por ruta (/productos).
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteData } from "@/src/data/nat";
 import Link from "next/link";
@@ -14,15 +14,24 @@ import Image from "next/image";
 
 const { navLinks } = siteData;
 import { Button } from "@/src/components/ui/button";
-import { Menu, X, Sprout } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  const router = useRouter();
+
+  const isHash = (href: string) => href.startsWith("#");
+
   const handleNav = (href: string) => {
     setOpen(false);
+    if (!isHash(href)) {
+      // Es una ruta (ej. /productos), navegar con router
+      router.push(href);
+      return;
+    }
     if (isHome) {
       // Scroll suave dentro del home
       const el = document.querySelector(href);
@@ -55,7 +64,7 @@ export default function Navbar() {
                 }}
               >
                 <Image
-                  src={siteData.logo}
+                  src={siteData.logoCompleto}
                   alt={siteData.brand.name}
                   width={180}
                   height={40}
@@ -66,30 +75,34 @@ export default function Navbar() {
             </motion.div>
 
             <nav className="hidden lg:flex items-center gap-8">
-              {navLinks.map((item, index) => (
-                <motion.a
-                  key={item.href}
-                  href={isHome ? item.href : `/${item.href}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNav(item.href);
-                  }}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-light transition-all duration-300 group-hover:w-full" />
-                </motion.a>
-              ))}
-              <Link
-                href="/productos"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-              >
-                Catálogo
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-light transition-all duration-300 group-hover:w-full" />
-              </Link>
+              {navLinks.map((item, index) =>
+                isHash(item.href) ? (
+                  <motion.a
+                    key={item.href}
+                    href={isHome ? item.href : `/${item.href}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNav(item.href);
+                    }}
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {item.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-light transition-all duration-300 group-hover:w-full" />
+                  </motion.a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                  >
+                    {item.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-light transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                )
+              )}
             </nav>
 
             <div className="flex items-center gap-4">
@@ -123,26 +136,30 @@ export default function Navbar() {
               className="lg:hidden bg-card border-t border-border overflow-hidden"
             >
               <nav className="mx-auto max-w-7xl px-6 py-4 flex flex-col gap-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={isHome ? link.href : `/${link.href}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(link.href);
-                    }}
-                    className="py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors text-left"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-                <Link
-                  href="/productos"
-                  onClick={() => setOpen(false)}
-                  className="py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors text-left font-medium"
-                >
-                  Catálogo de Productos
-                </Link>
+                {navLinks.map((link) =>
+                  isHash(link.href) ? (
+                    <a
+                      key={link.href}
+                      href={isHome ? link.href : `/${link.href}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNav(link.href);
+                      }}
+                      className="py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors text-left"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors text-left font-medium"
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                )}
               </nav>
             </motion.div>
           )}
