@@ -1,14 +1,14 @@
 import { StaticImageData } from "next/image";
 import banner1 from "@/src/assets/banners/Banner-1.webp";
-import banner2 from "@/src/assets/banners/Banner-2.png";
+import banner2 from "@/src/assets/banners/Banner-2.webp";
 import banner3 from "@/src/assets/banners/Banner-3.webp";
 import experienciaImg from "@/src/assets/experiencia/Trayectoria.webp";
 import prodAtencion from "@/src/assets/productos/atencion.webp";
 import prodFertilizantes from "@/src/assets/productos/fertilizantes.webp";
 import prodInsumos from "@/src/assets/productos/insumos.webp";
 import prodLogistica from "@/src/assets/productos/logisticas.webp";
-import logoCompleto from "@/src/assets/logo/logo-completo.png";
-import logo from "@/src/assets/logo/logo.png";
+import logoCompleto from "@/src/assets/logo/logo-completo.webp";
+import logo from "@/src/assets/logo/logo.webp";
 
 import {
   Zap,

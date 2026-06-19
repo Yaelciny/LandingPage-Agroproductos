@@ -12,7 +12,7 @@ import Navbar from "@/src/components/Navbar/Navbar";
 import Footer from "@/src/components/Footer/Footer";
 import WhatsAppFloat from "@/src/components/WhatsAppFloat/WhatsAppFloat";
 import { catalogData, siteData } from "@/src/data/nat";
-import catalogoImg from "@/src/assets/catalogo/catalogo.png";
+import catalogoImg from "@/src/assets/catalogo/catalogo.webp";
 
 const { categories, heroTitle, heroDescription } = catalogData;
 const { contact } = siteData;
@@ -48,7 +48,7 @@ export default function ProductosPage() {
     <>
       <Navbar />
 
-      <main className="flex-1 mt-20">
+      <main className="flex-1 mt-0lg:mt-20">
         {/* ── Hero ────────────────────────────────────── */}
         <section className="relative overflow-hidden bg-primary pt-28 pb-20 md:pt-36 md:pb-28">
           {/* Imagen de fondo y capa superpuesta */}
